@@ -1779,7 +1779,7 @@ function renderWeek(wNum) {
     mc.innerHTML = `<div>
       <div class="day-num">7日目</div>
       <div class="day-title">📝 まとめ問題 / Ujian rangkuman</div>
-      <div class="day-grammar">本 p${mset.page} · ${mset.problems.length}問（もんだい1・2）</div>
+      <div class="day-grammar">${mset.problems.length}問（もんだい1・2）</div>
     </div>
     <div class="day-badge">7</div>`;
     list.appendChild(mc);
@@ -1854,12 +1854,12 @@ function renderLesson(wNum, dNum) {
   // ── 本の練習問題ボタン（データがある日のみ） ──
   if (getBookSet(wNum, dNum)) {
     const bset = getBookSet(wNum, dNum);
-    html += `<div class="lesson-nav-row"><button class="btn-book" onclick="startBookQuiz(${wNum},${dNum})">📖 本の練習問題 (p${bset.page}) / Latihan buku</button></div>`;
+    html += `<div class="lesson-nav-row"><button class="btn-book" onclick="startBookQuiz(${wNum},${dNum})">📖 本の練習問題 / Latihan buku</button></div>`;
   }
   // ── 7日目まとめ問題（最終日にまとめがあれば） ──
   if (dNum === wNum*0 + (WEEKS[wNum-1].days.length) && BOOK_PROBLEMS[wNum] && BOOK_PROBLEMS[wNum].matome) {
     const mset = BOOK_PROBLEMS[wNum].matome;
-    html += `<div class="lesson-nav-row"><button class="btn-matome" onclick="startBookQuiz(${wNum},'matome')">📝 7日目 まとめ問題 (p${mset.page}) / Ujian rangkuman</button></div>`;
+    html += `<div class="lesson-nav-row"><button class="btn-matome" onclick="startBookQuiz(${wNum},'matome')">📝 7日目 まとめ問題 / Ujian rangkuman</button></div>`;
   }
   // ── ナビゲーション（前・完了・次） ──
   html += `<div class="lesson-nav">`;
@@ -1930,7 +1930,7 @@ function startBookQuiz(wNum, dNum) {
   if (!set || !set.problems || set.problems.length === 0) { alert('この課題はまだ準備中です。'); return; }
   isBlankQuiz = false; isRearrange = false; isSynonymQuiz = false; isVerbDrill = false; isBookQuiz = true;
   quizItems = set.problems.map(p => ({
-    bookLabel: `本 p${set.page} · ${p.label}`,
+    bookLabel: `${p.label}`,
     sentence: p.sentence,
     options: p.options.slice(),
     correct: p.correct,
@@ -3024,8 +3024,8 @@ function pickOpt(i) {
     const fullLine = q.full ? `<br>→ ${addFurigana(q.full)}` : '';
     const idLine = q.id ? `<div class="book-id-line"><span class="q-id-flag">🇮🇩</span>${q.id}</div>` : '';
     fb.innerHTML = ok
-      ? `<strong>正解！ Benar! ✓</strong><div class="fb-detail">${fullLine ? fullLine.replace('<br>','') : ''}${idLine}<span class="blank-badge">本 p${q.page}</span></div>`
-      : `<strong>不正解 Salah. ✗</strong><div class="fb-detail">正解: <strong>${q.correct}</strong>${fullLine}${idLine}<br><span class="blank-badge">本 p${q.page}</span></div>`;
+      ? `<strong>正解！ Benar! ✓</strong><div class="fb-detail">${fullLine ? fullLine.replace('<br>','') : ''}${idLine}</div>`
+      : `<strong>不正解 Salah. ✗</strong><div class="fb-detail">正解: <strong>${q.correct}</strong>${fullLine}${idLine}</div>`;
   } else {
     fb.innerHTML = ok
       ? `<strong>正解！ Benar! ✓</strong><div class="fb-detail">${q.meaningId}</div>`
@@ -4243,7 +4243,7 @@ const READINGS = {
   "始":"はじ","終":"お","開":"あ","閉":"し","起":"お",
   "決":"き","選":"えら","比":"くら","調":"しら","並":"なら",
   "働":"はたら","集":"あつ","集":"あつ","増":"ふ","減":"へ",
-  "変":"か","壊":"こわ","直":"なお","建":"た","捨":"す",
+  "変わ":"かわ","変え":"かえ","変":"へん","壊":"こわ","直":"なお","建":"た","捨":"す",
   "拾":"ひろ","押":"お","引":"ひ","切":"き","折":"お",
   // Japan / language
   "日本語":"にほんご","日本":"にほん","日本人":"にほんじん",
@@ -4546,7 +4546,7 @@ const READINGS = {
   "心臓":"しんぞう",
   "布団":"ふとん",
   "寄る":"よる","立ち寄る":"たちよる",
-  "通る":"とおる","通り":"とおり","通って":"とおって",
+  "通る":"とおる","通り":"とおり","を通って":"をとおって","を通る":"をとおる","を通り":"をとおり","通って":"かよって","通う":"かよう","通い":"かよい",
   "想像":"そうぞう","想い":"おもい",
   "生まれる":"うまれる","生まれ":"うまれ","生む":"うむ",
   "気遣い":"きづかい",
@@ -4742,7 +4742,7 @@ const READINGS = {
   "立たされ":"たたされ","立たれ":"たたれ","立たせ":"たたせ","立っている":"たっている","立って":"たって","立ち":"たち","立つ":"たつ","立た":"たた",
   "夫":"おっと","急いで":"いそいで","急い":"いそい","急ぐ":"いそぐ","急に":"きゅうに",
   "血":"ち","患者":"かんじゃ","地しん":"じしん","池":"いけ","重い":"おもい","重く":"おもく",
-  "文字":"もじ","文句":"もんく","文末":"ぶんまつ","文頭":"ぶんとう","文化":"ぶんか","文法":"ぶんぽう","文":"ぶん",  "1年":"いちねん",
+  "文字":"もじ","文句":"もんく","文末":"ぶんまつ","文頭":"ぶんとう","文化":"ぶんか","文法":"ぶんぽう","文":"ぶん",  "1年":"いちねん",  "10時間":"じゅうじかん","10時":"じゅうじ","来週中":"らいしゅうちゅう","今週中":"こんしゅうちゅう",
 };
 
 // ── ROMAJI ──
